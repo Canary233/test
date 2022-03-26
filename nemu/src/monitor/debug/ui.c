@@ -58,10 +58,10 @@ static int cmd_x(char *args){
   int len;
   vaddr_t addr;
   sscanf(args,"%d %x",&len,&addr);
-  printf("Address\tDword block...Byte sequence\n");
+  printf("Address    Dword block...Byte sequence\n");
   for(int i=0;i<len;i++)
   {
-      printf( "%8x\t%8x...\n",addr,vaddr_read(addr,4));
+      printf( "0x%08x  0x%08x...\n",addr,vaddr_read(addr,4));
       addr+=4;
   }
   return -1;
