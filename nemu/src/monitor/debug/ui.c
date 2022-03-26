@@ -61,8 +61,8 @@ static int cmd_x(char *args){
   printf("Address\tDword block...Byte sequence\n");
   for(int i=0;i<len;i++)
   {
-      printf( "%x\n",vaddr_read(addr,4));
-      addr+=1;
+      printf( "%x\t%x\n",addr,vaddr_read(addr,4));
+      addr+=4;
   }
   return -1;
 }
