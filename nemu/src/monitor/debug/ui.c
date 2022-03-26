@@ -39,8 +39,7 @@ static int cmd_si(char *args) {
      char *temp;
      int much;
      temp=strtok(args," ");
-     much=*temp-'0';
-     printf("%d",much);
+     much=atoi(temp);
      cpu_exec(much);
   }
   return 0;
