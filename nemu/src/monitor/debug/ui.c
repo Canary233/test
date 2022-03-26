@@ -33,7 +33,8 @@ static int cmd_c(char *args) {
 }
 
 static int cmd_si(char *args) {
-  if(strcmp(args,"si")==0)
+  puts(args);
+	if(strcmp(args,"si")==0)
          cpu_exec(-1);
   else{
      char *temp;
