@@ -40,6 +40,7 @@ static int cmd_si(char *args) {
      int much;
      temp=strtok(args," ");
      much=*temp-'0';
+     printf("%d",much);
      cpu_exec(much);
   }
   return 0;
