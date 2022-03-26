@@ -35,11 +35,10 @@ static int cmd_c(char *args) {
 static int cmd_si(char *args) {
   char *temp;
   int much;
-  temp=strtok(args," ");
-  if(strcmp(args,"si")==0) 
- 	 cpu_exec(-1);
-  else
-  {
+  if(strcmp(args,"si")==0)
+         cpu_exec(-1);
+  else{
+     temp=strtok(args," ");
      much=*temp-'0';
      cpu_exec(much);
   }
