@@ -49,7 +49,7 @@ static int cmd_info(char *args){
   {
        for(int index=0;index<8;index++)
        {
-      	 printf("%s:\t%8x\t", regsl[index], cpu.gpr[index]._32);
+      	 printf("%s:\t%8x\t%d\n", regsl[index], cpu.gpr[index]._32,cpu.gpr[0]._32);
        }
   }
   return -1;
