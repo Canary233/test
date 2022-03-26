@@ -54,6 +54,18 @@ static int cmd_info(char *args){
   }
   return -1;
 }
+static int cmd_x(char *args){
+  int len;
+  vaddr_t addr;
+  sscanf(args,"%d %x",&len,&addr);
+  printf("Address\tDword block...Byte sequence\n");
+  for(int i=0;i<len;i++)
+  {
+      printf( "%x\n",vaddr_read(addr,4));
+      addr+=1;
+  }
+  return -1;
+}
 static int cmd_q(char *args) {
   return -1;
 }
@@ -70,6 +82,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si" ,"Single step",cmd_si },
   {"info","Print register",cmd_info },
+  {"x","Scan memory",cmd_x},
   /* TODO: Add more commands */
 
 };
