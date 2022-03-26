@@ -36,7 +36,7 @@ static int cmd_si(char *args) {
   char *temp;
   int much;
   temp=strtok(args," ");
-  if(strcmp(temp,args)==0) 
+  if(strcmp(args,"si")==0) 
  	 cpu_exec(-1);
   else
   {
