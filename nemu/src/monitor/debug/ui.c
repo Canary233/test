@@ -52,19 +52,27 @@ static int cmd_info(char *args){
       	 printf("%s:\t%8x\t%d\n", regsl[index], cpu.gpr[index]._32,cpu.gpr[0]._32);
        }
   }
-  return -1;
+  return 0;
 }
 static int cmd_x(char *args){
   int len;
   vaddr_t addr;
+  vaddr_t temp;
   sscanf(args,"%d %x",&len,&addr);
   printf("Address    Dword block...Byte sequence\n");
   for(int i=0;i<len;i++)
   {
-      printf( "0x%08x  0x%08x...\n",addr,vaddr_read(addr,4));
+      temp=vaddr_read(addr,4);
+      printf( "0x%08x  0x%08x...",addr,temp);
+      for(int j=0;j<4;j++)
+      {
+           printf("%02x ",temp%256);
+	   temp=temp/256;
+      }
+      printf("\n");
       addr+=4;
   }
-  return -1;
+  return 0;
 }
 static int cmd_q(char *args) {
   return -1;
