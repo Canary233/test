@@ -31,7 +31,12 @@ static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
 }
-
+static int cmd_p(char *args){
+  bool ifis;
+  int resu=expr(args,&ifis);
+  printf("%d\n",resu);
+  return 0;
+}
 static int cmd_si(char *args) {
   if(args==NULL)
       cpu_exec(1);
@@ -91,6 +96,7 @@ static struct {
   { "si" ,"Single step",cmd_si },
   {"info","Print register",cmd_info },
   {"x","Scan memory",cmd_x},
+  {"p","Calculate",cmd_p},
   /* TODO: Add more commands */
 
 };
