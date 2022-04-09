@@ -207,6 +207,54 @@ bool check_parentheses(int p,int q)
 	else
 		return false;
 }
+int youxian(int n)
+{
+	if(n==259||n==260) //&&,||
+		return 5;
+	if(n==42||n==47)   //*,\/		
+		return 2;
+	if(n==43||n==45)   //+,-
+		return 3;
+	if(n==257||n==258)  //=,!=
+		return 4;
+	if(n==261)         //!
+		return 1;
+	else
+		return 0;
+}
+int find_dominated_op(int p,int q)
+{
+	int num=0;
+	int you=0;
+	int pos=p;
+	for(int i=p;i<=q;i++)
+	{
+		if(tokens[i].type==263||tokens[i].type==262||tokens[i].type==264)
+			continue;
+		if(tokens[i].type==40)
+		{
+			num++;
+			i++;
+			while(num!=0)
+			{
+				if(tokens[i].type==40)
+					num++;
+				else if(tokens[i].type==41)
+					num--;
+				i++;
+			}
+			if(i>q)
+				break;
+			i--;
+		}
+		else if(youxian(tokens[i].type)>=you)
+		{
+			you=youxian(tokens[i].type);
+			pos=i;
+		}
+	}
+	return pos;
+}
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
