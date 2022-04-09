@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_UEQ,TK_AND,TK_OR,TK_NOT,TK_HEX,TK_DEC,TK_REG
+  TK_NOTYPE = 256, TK_EQ=257,TK_UEQ=258,TK_AND=259,TK_OR=260,TK_NOT=261,TK_HEX=262,TK_DEC=263,TK_REG=264
 
   /* TODO: Add more token types */
 };
@@ -33,8 +33,8 @@ static struct rule {
   {"&&",TK_AND},        //and
   {"\\|\\|",TK_OR},     //or
   {"!",TK_NOT},         //not
-  {"0x[A-Fa-f0-9]{1,32}",TK_HEX}, //hex
-  {"[0-9]{1,10}",TK_DEC}, //decimal
+  {"0x[A-Fa-f0-9]{1,30}",TK_HEX}, //hex
+  {"[0-9]{1,32}",TK_DEC}, //decimal
   {"\\$[a-dA-D][h|HL]\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REG} //register
 };
 
@@ -89,11 +89,92 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
         switch (rules[i].token_type) {
-          default: TODO();
+         case 40:
+	 {
+              tokens[nr_token].type=40;
+	      break;
+	 }
+         case 41:
+	 {
+              tokens[nr_token].type=41;
+	      break;
+	 }
+         case 42:
+	 {
+              tokens[nr_token].type=42;
+	      break;
+	 }
+         case 43:
+	 {
+              tokens[nr_token].type=43;
+	      break;
+	}
+	  case 45:
+         {
+              tokens[nr_token].type=45;
+              break;
+         }
+	  case 47:
+         {
+              tokens[nr_token].type=47;
+              break;
+         }
+	 case 257:
+         {
+              tokens[nr_token].type=257;
+	      strcpy(tokens[nr_token].str,"==");
+              break;
+         }
+	  case 258:
+         {
+              tokens[nr_token].type=258;
+              strcpy(tokens[nr_token].str,"!=");
+              break;
+         }
+	 case 259:
+         {
+              tokens[nr_token].type=259;
+              strcpy(tokens[nr_token].str,"&&");
+              break;
+         }
+	case 260:
+         {
+              tokens[nr_token].type=260;
+              strcpy(tokens[nr_token].str,"||");
+              break;
+         }
+	 case 261:
+         {
+              tokens[nr_token].type=261;
+	      strcpy(tokens[nr_token].str,"!");
+              break;
+         }
+	case 262:
+	 {
+	       tokens[nr_token].type=262;
+	       strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
+	       break;
+	 }
+	 case 263:
+         {
+               tokens[nr_token].type=263;
+               strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
+               break;
+	}
+	 case 264:
+          {
+               tokens[nr_token].type=264;
+               strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
+               break;
         }
 
+          default:
+	 {
+              nr_token--;
+	      break;	
+        }
+	nr_token++;
         break;
       }
     }
@@ -103,10 +184,29 @@ static bool make_token(char *e) {
       return false;
     }
   }
-
+  nr_token--;
+  }
   return true;
 }
-
+bool check_parentheses(int p,int q)
+{
+	if(tokens[p].type!=40&&tokens[p].type!=41)
+		return false;
+	int num=0;
+	for(int i=p;i<=q;i++)
+	{
+		if(tokens[i].type==40)
+			num++;
+		else if(tokens[i].type==41)
+			num--;
+		if(num==0&&i<q)
+			return false;
+	}
+	if(num==0)
+		return true;
+	else
+		return false;
+}
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
