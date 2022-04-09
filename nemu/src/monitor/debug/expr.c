@@ -1,5 +1,6 @@
 #include "nemu.h"
-
+#include<string.h>
+#include<stdlib.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -35,7 +36,7 @@ static struct rule {
   {"!",TK_NOT},         //not
   {"0x[A-Fa-f0-9]{1,30}",TK_HEX}, //hex
   {"[0-9]{1,32}",TK_DEC}, //decimal
-  {"\\$[a-dA-D][h|HL]\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REG} //register
+  {"$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REG} //register
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -255,6 +256,59 @@ int find_dominated_op(int p,int q)
 	}
 	return pos;
 }
+uint32_t eval(int p,int q)
+{
+    if (p > q) {
+	assert(0);	 
+        /* Bad expression */
+    }
+    else if (p == q) {
+	if(tokens[p].type==263)    
+		return atoi(tokens[p].str);
+	else if(tokens[p].type==262)
+	{
+		int sum=0;
+		for(int j=2;j<strlen(tokens[p].str);j++)
+		{
+			sum=sum*16+tokens[p].str[j]-'0';
+		}
+		return sum;
+	}
+	else
+	{
+	    for(int index=0;index<8;index++)
+      	    {
+		 if(strcmp(regsl[index],tokens[p].str)==0)
+      	               return cpu.gpr[index]._32;
+       	    }
+	    assert(0);
+	}
+    }
+    else if (check_parentheses(p, q) == true) {
+        return eval(p + 1, q - 1);
+    }
+    else {
+        int op,op_type;
+        op = find_dominated_op(p,q);
+        op_type=tokens[op].type;
+        if(op_type==261)
+                return eval(op+1,q);
+        uint32_t val1 = eval(p, op - 1);
+        uint32_t val2 = eval(op + 1, q);
+        switch (op_type) {
+
+            case 43: return val1 + val2;
+            case 45: return val1 - val2;
+            case 42: return val1 * val2; 
+            case 47: return val1 / val2;
+	    case 257:return val1 == val2;
+	    case 258:return val1 != val2;
+	    case 259:return val1 && val2;
+	    case 260:return val1 || val2;
+            default: assert(0);
+        }
+    }
+}
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -264,5 +318,5 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
 
-  return 0;
+  return eval(0,nr_token-1);
 }
