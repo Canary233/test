@@ -124,31 +124,26 @@ static bool make_token(char *e) {
 	 case 257:
          {
               tokens[nr_token].type=257;
-	      strcpy(tokens[nr_token].str,"==");
               break;
          }
 	  case 258:
          {
               tokens[nr_token].type=258;
-              strcpy(tokens[nr_token].str,"!=");
               break;
          }
 	 case 259:
          {
               tokens[nr_token].type=259;
-              strcpy(tokens[nr_token].str,"&&");
               break;
          }
 	case 260:
          {
               tokens[nr_token].type=260;
-              strcpy(tokens[nr_token].str,"||");
               break;
          }
 	 case 261:
          {
               tokens[nr_token].type=261;
-	      strcpy(tokens[nr_token].str,"!");
               break;
          }
 	case 262:
