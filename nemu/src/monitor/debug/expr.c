@@ -269,7 +269,12 @@ uint32_t eval(int p,int q)
 		int sum=0;
 		for(int j=2;j<strlen(tokens[p].str);j++)
 		{
-			sum=sum*16+tokens[p].str[j]-'0';
+			if(tokens[p].str[j]>='a')
+				sum=sum*16+tokens[p].str[j]-'a'+10;
+			else if(tokens[p].str[j]<'A')
+				sum=sum*16+tokens[p].str[j]-'0';
+			else
+				sum=sum*16+tokens[p].str[j]-'A'+10;
 		}
 		return sum;
 	}
