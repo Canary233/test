@@ -255,12 +255,12 @@ int find_dominated_op(int p,int q,bool *success)
                 }
 
 	}
-      /*	if(you==0)
+      		if(you==0)
 	{
 		printf("没有核心运算符\n");
 		*success=false;
 		return -1;
-	}*/
+	}
 	return pos;
 }
 uint32_t eval(int p,int q,bool *success)
@@ -421,10 +421,6 @@ uint32_t expr(char *e, bool *success) {
 		 printf("括号不匹配！\n");
         	  *success=false;
         	  return -1;	
-	}
-	if(tokens[i].type==265||tokens[i].type==266)
-	{
-		printf("%d转化为%d\n",i,tokens[i].type);
 	}
   }
   if(num!=0)
