@@ -314,7 +314,9 @@ uint32_t eval(int p,int q,bool *success)
         if(op_type==261)
                 return !eval(op+1,q,success);
 	if(op_type==265)
-		return -eval(op+1,q,success);	
+		return -eval(op+1,q,success);
+	if(op_type==266)
+		return vaddr_read(eval(op+1,q,success),4);	
         uint32_t val1 = eval(p, op - 1,success);
         uint32_t val2 = eval(op + 1, q,success);
         switch (op_type) {
