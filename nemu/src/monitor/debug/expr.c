@@ -288,7 +288,6 @@ uint32_t eval(int p,int q,bool *success)
 	}
 	else if(tokens[p].type==264)
 	{
-	    puts(tokens[p].str);
 	    if(strcmp(tokens[p].str,"eip")==0)
        	    {
 		return cpu.eip;
@@ -298,7 +297,6 @@ uint32_t eval(int p,int q,bool *success)
 		 if(strcmp(regsl[index],tokens[p].str)==0)
       	               return cpu.gpr[index]._32;
        	    }
-	    printf("cuozaizheli\n");
 	    assert(0);
 	}
 	else
