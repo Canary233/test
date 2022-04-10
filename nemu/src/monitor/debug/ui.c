@@ -84,7 +84,7 @@ static int cmd_x(char *args){
   }
   else if(str[1]!='x')
   {
-     if(strcmp(str,"eip")==0)
+     if(strcmp(str,"$eip")==0)
       {
              addr=cpu.eip;
 	     find=1;
@@ -93,7 +93,13 @@ static int cmd_x(char *args){
      {
             for(int index=0;index<8;index++)
             {
-                 if(strcmp(regsl[index],str)==0)
+		 char strnew[32];
+		 for(int in=1;in<4;in++)
+		 {
+			 strnew[in-1]=str[in];
+		 }
+		 strnew[3]='\0';
+                 if(strcmp(regsl[index],strnew)==0)
 		 {
                        addr=cpu.gpr[index]._32;
 		       find=1;
