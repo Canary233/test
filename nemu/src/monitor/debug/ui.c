@@ -63,9 +63,49 @@ static int cmd_info(char *args){
 }
 static int cmd_x(char *args){
   int len;
+  char str[32];
   vaddr_t addr;
   vaddr_t temp;
-  sscanf(args,"%d %x",&len,&addr);
+  sscanf(args,"%d %s",&len,str);
+  bool find=0;
+  if(str[1]=='x')
+  {
+      find=1;
+      addr=0;
+      for(int j=2;j<strlen(str);j++)
+      {
+            if(str[j]>='a')
+                 addr=addr*16+str[j]-'a'+10;
+            else if(str[j]<'A')
+                 addr=addr*16+str[j]-'0';
+            else
+                 addr=addr*16+str[j]-'A'+10;
+       }
+  }
+  else if(str[1]!='x')
+  {
+     if(strcmp(str,"eip")==0)
+      {
+             addr=cpu.eip;
+	     find=1;
+       }
+     else
+     {
+            for(int index=0;index<8;index++)
+            {
+                 if(strcmp(regsl[index],str)==0)
+		 {
+                       addr=cpu.gpr[index]._32;
+		       find=1;
+		 }
+            }
+     }
+  }
+  if(find==0)
+  {
+	  printf("不存在这个寄存器！\n");
+	  return 0;
+  }
   printf("Address    Dword block...Byte sequence\n");
   for(int i=0;i<len;i++)
   {
