@@ -171,22 +171,20 @@ static bool make_token(char *e) {
 		 tokens[nr_token].str[ strlen( tokens[nr_token].str)]='\0';
 	       break;
         }
-
           default:
 	{
-              nr_token--;
+	      nr_token--;
 	      break;	
         }
 	}
 	nr_token++;
         break;
     }
-
+	}
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }
-  }
   }
   return true;
 }
