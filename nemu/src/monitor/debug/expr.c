@@ -36,7 +36,7 @@ static struct rule {
   {"!",TK_NOT},         //not
   {"0x[A-Fa-f0-9]{1,30}",TK_HEX}, //hex
   {"[0-9]{1,32}",TK_DEC}, //decimal
-  {"$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REG} //register
+  {"\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REG} //register
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
