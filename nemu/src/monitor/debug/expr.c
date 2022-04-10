@@ -151,7 +151,6 @@ static bool make_token(char *e) {
 	       tokens[nr_token].type=262;
 	       strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
 	        tokens[nr_token].str[strlen( tokens[nr_token].str)]='\0';
-	       //puts(tokens[nr_token].str);
 	       break;
 	 }
 	 case 263:
@@ -159,15 +158,12 @@ static bool make_token(char *e) {
                tokens[nr_token].type=263;
                strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
               tokens[nr_token].str[strlen( tokens[nr_token].str)]='\0';
-	       //puts(tokens[nr_token].str);
-
 	       break;
 	}
 	 case 264:
           {
                tokens[nr_token].type=264;
                strncpy(tokens[nr_token].str,&e[position-substr_len+1],substr_len);
-             // puts(tokens[nr_token].str);
 		 tokens[nr_token].str[ strlen( tokens[nr_token].str)]='\0';
 	       break;
         }
