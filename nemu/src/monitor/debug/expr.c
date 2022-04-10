@@ -171,8 +171,7 @@ static bool make_token(char *e) {
         }
 
           default:
-	 {
-	      nr_token--;
+	{
 	      break;	
         }
 	}
@@ -186,7 +185,6 @@ static bool make_token(char *e) {
     }
   }
   }
-  nr_token--;
   return true;
 }
 bool check_parentheses(int p,int q)
