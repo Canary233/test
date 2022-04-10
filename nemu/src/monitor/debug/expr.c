@@ -255,7 +255,7 @@ int find_dominated_op(int p,int q,bool *success)
                 }
 
 	}
-	if(pos==-1)
+	if(you==0)
 	{
 		printf("没有核心运算符\n");
 		*success=false;
