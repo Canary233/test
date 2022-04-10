@@ -288,6 +288,7 @@ uint32_t eval(int p,int q,bool *success)
 	}
 	else if(tokens[p].type==264)
 	{
+	    puts(tokens[p].str);
 	    if(strcmp(tokens[p].str,"eip")==0)
        	    {
 		return cpu.eip;
