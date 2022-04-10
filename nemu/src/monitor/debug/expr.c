@@ -213,7 +213,7 @@ int youxian(int n)
 		return 3;
 	if(n==257||n==258)  //=,!=
 		return 4;
-	if(n==261)         //!
+	if(n==261||n==265)         //!,-(fuhao)
 		return 1;
 	else
 		return 0;
@@ -289,7 +289,6 @@ uint32_t eval(int p,int q)
 	}
 	else
 	{
-	   printf("两个符号连在一起了\n");
 	   assert(0);
 	}
     }
@@ -302,6 +301,8 @@ uint32_t eval(int p,int q)
         op_type=tokens[op].type;
         if(op_type==261)
                 return !eval(op+1,q);
+	if(op_type==265)
+		return -eval(op+1,q);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
         switch (op_type) {
@@ -323,8 +324,80 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  int num=0;
   /* TODO: Insert codes to evaluate the expression. */
+  if(nr_token==0)
+  {
+	  printf("输入不能为空\n");
+	  *success=false;
+          return 0;
+  }
+  if(nr_token==1&&tokens[0].type!=262&&tokens[0].type!=263&&tokens[0].type!=264)
+  {
+	  printf("只输入了一个符号！\n");
+	  *success=false;
+          return 0;
+  }
+  if(tokens[nr_token-1].type!=262&&tokens[nr_token-1].type!=263&&tokens[nr_token-1].type!=264&&tokens[nr_token-1].type!=41)
+  {
+          printf("最后一个是符号！\n");
+          *success=false;
+          return 0;
+  }
+  if(tokens[0].type!=45&&tokens[0].type<261&&tokens[0].type!=40)
+  {
+	  printf("第一个不能是符号！\n");
+	  *success=false;
+	  return 0;
+  }
+  if(tokens[0].type==45)
+  {
+	  tokens[0].type=265;
+  }
+  if(tokens[0].type==40)
+  {
+	num++;
+  }
+  for(int i=1;i<nr_token;i++)
+  {
+	if(tokens[i].type==40)
+  		 num++;
+	else if(tokens[i].type==41)
+		num--;
+	else if(tokens[i].type==261)
+	{
+		//用于排除！情况于最后的else之外
+        }
+	else if(tokens[i].type==45)
+        {
+                if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264)
+                        tokens[i].type=265;
+        }
 
+	else if(tokens[i].type>=262&&tokens[i].type<=264)
+	{
+		if(tokens[i-1].type>=262&&tokens[i-1].type<=264)
+		{
+			printf("两个数字并列\n");
+			*success=false;
+			return 0;
+		}	
+	}
+	else
+	{
+		 if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264)
+		{
+			 printf("两个符号并列\n");
+                        *success=false;
+                        return 0;	
+		}
+	}
+  }
+  if(num!=0)
+  {
+	  printf("括号不匹配！\n");
+	  *success=false;
+	  return 0;
+  }
   return eval(0,nr_token-1);
 }
