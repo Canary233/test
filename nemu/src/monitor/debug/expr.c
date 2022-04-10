@@ -382,7 +382,7 @@ uint32_t expr(char *e, bool *success) {
   		 num++;
 	else if(tokens[i].type==41)
 		num--;
-	else if(tokens[i].type==261)
+	else if(tokens[i].type==261||tokens[i].type==266||tokens[i].type==265)
 	{
 		//用于排除！情况于最后的else之外
         }
