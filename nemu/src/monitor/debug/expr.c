@@ -275,6 +275,10 @@ uint32_t eval(int p,int q)
 	}
 	else
 	{
+	    if(strcmp(tokens[p].str,"eip")==0)
+       	    {
+		return cpu.eip;
+      	    }
 	    for(int index=0;index<8;index++)
       	    {
 		 if(strcmp(regsl[index],tokens[p].str)==0)
