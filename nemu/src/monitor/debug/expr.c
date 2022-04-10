@@ -388,12 +388,12 @@ uint32_t expr(char *e, bool *success) {
         }
 	else if(tokens[i].type==45)
         {
-                if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264)
+                if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264&&tokens[i-1].type!=41)
                         tokens[i].type=265;
         }
 	 else if(tokens[i].type==42)
         {
-                if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264)
+                if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264&&tokens[i-1].type!=41)
                         tokens[i].type=266;
         }
 
