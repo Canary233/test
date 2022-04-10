@@ -297,6 +297,7 @@ uint32_t eval(int p,int q,bool *success)
 		 if(strcmp(regsl[index],tokens[p].str)==0)
       	               return cpu.gpr[index]._32;
        	    }
+	    printf("cuozaizheli\n");
 	    assert(0);
 	}
 	else
