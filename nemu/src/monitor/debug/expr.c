@@ -8,7 +8,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ=257,TK_UEQ=258,TK_AND=259,TK_OR=260,TK_NOT=261,TK_HEX=262,TK_DEC=263,TK_REG=264
+  TK_NOTYPE = 256, TK_EQ=257,TK_UEQ=258,TK_AND=259,TK_OR=260,TK_NOT=261,TK_HEX=262,TK_DEC=263,TK_REG=264,TK_FUHAO=265
 
   /* TODO: Add more token types */
 };
@@ -274,7 +274,7 @@ uint32_t eval(int p,int q)
 		}
 		return sum;
 	}
-	else
+	else if(tokens[p].type==264)
 	{
 	    if(strcmp(tokens[p].str,"eip")==0)
        	    {
@@ -286,6 +286,11 @@ uint32_t eval(int p,int q)
       	               return cpu.gpr[index]._32;
        	    }
 	    assert(0);
+	}
+	else
+	{
+	   printf("两个符号连在一起了\n");
+	   assert(0);
 	}
     }
     else if (check_parentheses(p, q) == true) {
