@@ -330,25 +330,25 @@ uint32_t expr(char *e, bool *success) {
   {
 	  printf("输入不能为空\n");
 	  *success=false;
-          return 0;
+          return -1;
   }
   if(nr_token==1&&tokens[0].type!=262&&tokens[0].type!=263&&tokens[0].type!=264)
   {
 	  printf("只输入了一个符号！\n");
 	  *success=false;
-          return 0;
+          return -1;
   }
   if(tokens[nr_token-1].type!=262&&tokens[nr_token-1].type!=263&&tokens[nr_token-1].type!=264&&tokens[nr_token-1].type!=41)
   {
           printf("最后一个是符号！\n");
           *success=false;
-          return 0;
+          return -1;
   }
   if(tokens[0].type!=45&&tokens[0].type<261&&tokens[0].type!=40)
   {
 	  printf("第一个不能是符号！\n");
 	  *success=false;
-	  return 0;
+	  return -1;
   }
   if(tokens[0].type==45)
   {
@@ -380,7 +380,7 @@ uint32_t expr(char *e, bool *success) {
 		{
 			printf("两个数字并列\n");
 			*success=false;
-			return 0;
+			return -1;
 		}	
 	}
 	else
@@ -389,15 +389,21 @@ uint32_t expr(char *e, bool *success) {
 		{
 			 printf("两个符号并列\n");
                         *success=false;
-                        return 0;	
+                        return -1;	
 		}
+	}
+	if(num<0)
+	{
+		 printf("括号不匹配！\n");
+        	  *success=false;
+        	  return -1;	
 	}
   }
   if(num!=0)
   {
 	  printf("括号不匹配！\n");
 	  *success=false;
-	  return 0;
+	  return -1;
   }
   return eval(0,nr_token-1);
 }
