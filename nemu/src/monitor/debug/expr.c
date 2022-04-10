@@ -409,7 +409,7 @@ uint32_t expr(char *e, bool *success) {
 	}
 	else
 	{
-		 if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264)
+		 if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264&&tokens[i-1].type!=40&&tokens[i-1].type!=41)
 		{
 			 printf("两个符号并列\n");
                         *success=false;
