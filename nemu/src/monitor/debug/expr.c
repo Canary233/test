@@ -218,7 +218,7 @@ int youxian(int n)
 	else
 		return 0;
 }
-int find_dominated_op(int p,int q)
+int find_dominated_op(int p,int q,bool *success)
 {
 	int num=0;
 	int you=0;
@@ -255,9 +255,15 @@ int find_dominated_op(int p,int q)
                 }
 
 	}
+	if(pos==-1)
+	{
+		printf("没有核心运算符\n");
+		*success=false;
+		return -1;
+	}
 	return pos;
 }
-uint32_t eval(int p,int q)
+uint32_t eval(int p,int q,bool *success)
 {
     if (p > q) {
 	assert(0);	 
@@ -299,18 +305,18 @@ uint32_t eval(int p,int q)
 	}
     }
     else if (check_parentheses(p, q) == true) {
-        return eval(p + 1, q - 1);
+        return eval(p + 1, q - 1,success);
     }
     else {
         int op,op_type;
-        op = find_dominated_op(p,q);
+        op = find_dominated_op(p,q,success);
         op_type=tokens[op].type;
         if(op_type==261)
-                return !eval(op+1,q);
+                return !eval(op+1,q,success);
 	if(op_type==265)
-		return -eval(op+1,q);
-        uint32_t val1 = eval(p, op - 1);
-        uint32_t val2 = eval(op + 1, q);
+		return -eval(op+1,q,success);
+        uint32_t val1 = eval(p, op - 1,success);
+        uint32_t val2 = eval(op + 1, q,success);
         switch (op_type) {
 
             case 43: return val1 + val2;
@@ -411,5 +417,5 @@ uint32_t expr(char *e, bool *success) {
 	  *success=false;
 	  return -1;
   }
-  return eval(0,nr_token-1);
+  return eval(0,nr_token-1,success);
 }
