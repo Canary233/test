@@ -422,6 +422,10 @@ uint32_t expr(char *e, bool *success) {
         	  *success=false;
         	  return -1;	
 	}
+	if(tokens[i].type==265||tokens[i].type==266)
+	{
+		printf("%d转化为%d\n",i,tokens[i].type);
+	}
   }
   if(num!=0)
   {
