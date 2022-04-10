@@ -25,8 +25,8 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
-  {"\\{",'{'},          // left kuohao
-  {"\\}",'}'},          //right kuohao
+  {"\\(",'('},          // left kuohao
+  {"\\)",')'},          //right kuohao
   {"-",'-'},            //jian
   {"\\*",'*'},          //multiply
   {"/",'/'},            //division
