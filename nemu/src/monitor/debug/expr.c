@@ -8,7 +8,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ=257,TK_UEQ=258,TK_AND=259,TK_OR=260,TK_NOT=261,TK_HEX=262,TK_DEC=263,TK_REG=264,TK_FUHAO=265
+  TK_NOTYPE = 256, TK_EQ=257,TK_UEQ=258,TK_AND=259,TK_OR=260,TK_NOT=261,TK_HEX=262,TK_DEC=263,TK_REG=264,TK_FUHAO=265,TK_POINT=266
 
   /* TODO: Add more token types */
 };
@@ -213,7 +213,7 @@ int youxian(int n)
 		return 3;
 	if(n==257||n==258)  //=,!=
 		return 4;
-	if(n==261||n==265)         //!,-(fuhao)
+	if(n==261||n==265||n==266)         //!,-(fuhao)
 		return 1;
 	else
 		return 0;
@@ -314,7 +314,7 @@ uint32_t eval(int p,int q,bool *success)
         if(op_type==261)
                 return !eval(op+1,q,success);
 	if(op_type==265)
-		return -eval(op+1,q,success);
+		return -eval(op+1,q,success);	
         uint32_t val1 = eval(p, op - 1,success);
         uint32_t val2 = eval(op + 1, q,success);
         switch (op_type) {
@@ -356,7 +356,7 @@ uint32_t expr(char *e, bool *success) {
           *success=false;
           return -1;
   }
-  if(tokens[0].type!=45&&tokens[0].type<261&&tokens[0].type!=40)
+  if(tokens[0].type!=45&&tokens[0].type<261&&tokens[0].type!=40&&tokens[0].type!=42)
   {
 	  printf("第一个不能是符号！\n");
 	  *success=false;
@@ -369,6 +369,10 @@ uint32_t expr(char *e, bool *success) {
   if(tokens[0].type==40)
   {
 	num++;
+  }
+   if(tokens[0].type==42)
+  {
+          tokens[0].type=266;
   }
   for(int i=1;i<nr_token;i++)
   {
@@ -385,6 +389,12 @@ uint32_t expr(char *e, bool *success) {
                 if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264)
                         tokens[i].type=265;
         }
+	 else if(tokens[i].type==42)
+        {
+                if(tokens[i-1].type!=262&&tokens[i-1].type!=263&&tokens[i-1].type!=264)
+                        tokens[i].type=266;
+        }
+
 
 	else if(tokens[i].type>=262&&tokens[i].type<=264)
 	{
