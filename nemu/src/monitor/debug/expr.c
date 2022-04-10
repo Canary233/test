@@ -150,19 +150,24 @@ static bool make_token(char *e) {
 	 {
 	       tokens[nr_token].type=262;
 	       strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
+	       puts(tokens[nr_token].str);
 	       break;
 	 }
 	 case 263:
          {
                tokens[nr_token].type=263;
                strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
-               break;
+             puts(tokens[nr_token].str);
+
+	       break;
 	}
 	 case 264:
           {
                tokens[nr_token].type=264;
                strncpy(tokens[nr_token].str,&e[position-substr_len],substr_len);
-               break;
+              puts(tokens[nr_token].str);
+
+	       break;
         }
 
           default:
