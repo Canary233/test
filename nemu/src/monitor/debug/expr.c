@@ -163,7 +163,7 @@ static bool make_token(char *e) {
 	 case 264:
           {
                tokens[nr_token].type=264;
-               strncpy(tokens[nr_token].str,&e[position-substr_len+1],substr_len);
+               strncpy(tokens[nr_token].str,&e[position-substr_len+1],substr_len-1);
 		 tokens[nr_token].str[ strlen( tokens[nr_token].str)]='\0';
 	       break;
         }
