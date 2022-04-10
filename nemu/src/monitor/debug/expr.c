@@ -243,11 +243,17 @@ int find_dominated_op(int p,int q)
 				break;
 			i--;
 		}
-		else if(youxian(tokens[i].type)>=you)
+		else if(youxian(tokens[i].type)>=you&&youxian(tokens[i].type)>1)
 		{
 			you=youxian(tokens[i].type);
 			pos=i;
 		}
+		else if(youxian(tokens[i].type)>you&&youxian(tokens[i].type)==1)
+		 {
+                        you=youxian(tokens[i].type);
+                        pos=i;
+                }
+
 	}
 	return pos;
 }
