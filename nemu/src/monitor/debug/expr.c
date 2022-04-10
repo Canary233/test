@@ -167,7 +167,6 @@ static bool make_token(char *e) {
 
           default:
 	 {
-              nr_token--;
 	      break;	
         }
 	nr_token++;
@@ -180,7 +179,6 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  nr_token--;
   }
   return true;
 }
