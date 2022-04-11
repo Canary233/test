@@ -22,7 +22,7 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-void *new_wp(char *st)
+WP *new_wp(char *st)
 {
    if(free_==NULL)
    { 
@@ -88,4 +88,19 @@ void free_wp(int n)
       }
    }
    printf("Watchpoint %d is not existed\n",n);
+}
+void list_watchpoint()
+{
+    WP *p=head;
+    if(head==NULL)
+    {
+	 printf("没有监视点\n");
+	 return;
+    }
+    while(p!=NULL)
+    {
+	printf( "NO Expr         Old Value\n");
+	printf("%d %s 0x%08x\n",p->NO,p->expr,p->old_val);
+        p=p->next;	
+    }
 }

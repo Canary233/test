@@ -2,13 +2,13 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
 void cpu_exec(uint64_t);
-
+void list_watchpoint();
+WP *new_wp(char*st);
+void free_wp(int n);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
   static char *line_read = NULL;
@@ -58,6 +58,10 @@ static int cmd_info(char *args){
        }
        printf("eip:\t%8x\t%d\n", cpu.eip,cpu.eip);
 
+  }
+  else if(strcmp(args,"w")==0)
+  {
+      list_watchpoint();	
   }
   return 0;
 }
@@ -130,7 +134,20 @@ static int cmd_x(char *args){
 static int cmd_q(char *args) {
   return -1;
 }
-
+static int cmd_w(char *args)
+{
+   WP *p=new_wp(args);
+   printf("Set watchpoint #%d\n",p->NO);
+   printf("expr      = %s\nold value =0x%08x\n",p->expr,p->old_val); 
+   return 0;
+}
+static int cmd_d(char *args)
+{
+   int num;
+   sscanf(args,"%d",&num);
+   free_wp(num);
+   return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -145,6 +162,8 @@ static struct {
   {"info","Print register",cmd_info },
   {"x","Scan memory",cmd_x},
   {"p","Calculate",cmd_p},
+  {"w","Set New Watchpoint",cmd_w},
+  {"d","Delete Watchpoint",cmd_d},
   /* TODO: Add more commands */
 
 };
