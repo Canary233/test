@@ -34,11 +34,11 @@ WP *new_wp(char *st)
    free_=free_->next;
    strcpy(temp->expr,st);
    temp->old_val=expr(temp->expr,success);
-   if(!success)
+/*   if(!success)
    {
        printf("运行失败！\n");
        assert(0);
-   }
+   }*/
    temp->next=NULL;
    if(head==NULL)	 
        head=temp;
