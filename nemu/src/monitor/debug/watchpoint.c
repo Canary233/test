@@ -51,7 +51,7 @@ WP *new_wp(char *st)
    }
    return temp;
 }
-void free_wp(int n)
+bool free_wp(int n)
 {
    if(head==NULL)
    {
@@ -81,13 +81,14 @@ void free_wp(int n)
 	     p->next=free_;
 	     free_=p;
 	     printf("Watchpoint %d deleted\n",n);
-	     return;
+	     return true;
 	 }
 	 p0=p0->next;
 	 p=p->next;
       }
    }
    printf("Watchpoint %d is not existed\n",n);
+   return false;
 }
 void list_watchpoint()
 {
@@ -100,7 +101,7 @@ void list_watchpoint()
     while(p!=NULL)
     {
 	printf( "NO Expr         Old Value\n");
-	printf("%d %s 0x%08x\n",p->NO,p->expr,p->old_val);
+	printf("%d %13s 0x%08x\n",p->NO,p->expr,p->old_val);
         p=p->next;	
     }
 }
