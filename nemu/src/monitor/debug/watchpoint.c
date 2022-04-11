@@ -62,6 +62,9 @@ bool free_wp(int n)
       p->old_val=0;
       p->new_val=0;
       free_=p;
+      printf("Watchpoint %d deleted\n",n);
+      return true;
+
    }
    else
    {
