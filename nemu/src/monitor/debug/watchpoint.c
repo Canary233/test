@@ -34,11 +34,6 @@ WP *new_wp(char *st)
    free_=free_->next;
    strcpy(temp->expr,st);
    temp->old_val=expr(temp->expr,success);
-/*   if(!success)
-   {
-       printf("运行失败！\n");
-       assert(0);
-   }*/
    temp->next=NULL;
    if(head==NULL)	 
        head=temp;
@@ -101,7 +96,7 @@ void list_watchpoint()
     while(p!=NULL)
     {
 	printf( "NO Expr         Old Value\n");
-	printf("%d %13s 0x%08x\n",p->NO,p->expr,p->old_val);
+	printf("%d %-13s 0x%08x\n",p->NO,p->expr,p->old_val);
         p=p->next;	
     }
 }
