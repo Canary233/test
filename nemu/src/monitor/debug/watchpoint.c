@@ -2,7 +2,7 @@
 #include "monitor/expr.h"
 #include<string.h>
 #define NR_WP 32
-
+#include "nemu.h"
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
 
@@ -102,4 +102,27 @@ void list_watchpoint()
 	printf("%d %-13s 0x%08x\n",p->NO,p->expr,p->old_val);
         p=p->next;	
     }
+
 }
+bool scan_watchpoint(void)
+{
+     WP *p=head;
+    if(head==NULL)
+    {
+         return true;
+    }
+    while(p!=NULL)
+    {
+	bool *success=false;
+        p->new_val=expr(p->expr,success);
+	if(p->new_val!=p->old_val)
+	{
+	    printf("Hit watchpoint %d at address 0x%08x\nexpr      = %s\nold value = 0x%08x\nnew value = 0x%08x\nprogram paused\n",p->NO,cpu.eip,p->expr,p->old_val,p->new_val);
+	      p->old_val=p->new_val;
+	      return false;
+	}
+        p=p->next;
+    }
+    return true;
+
+}	
