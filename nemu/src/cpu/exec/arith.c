@@ -2,8 +2,6 @@
 
 make_EHelper(add) {
   TODO();
- /* rtl_add(&t2,&id_dest->val,&id_src->val);
-  oprand_write(id_dest,&t2);*/
   print_asm_template2(add);
 }
 
