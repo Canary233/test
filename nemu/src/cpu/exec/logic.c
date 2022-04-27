@@ -8,13 +8,18 @@ make_EHelper(test) {
 
 make_EHelper(and) {
   TODO();
-
+  
   print_asm_template2(and);
 }
 
 make_EHelper(xor) {
-  TODO();
-
+  //TODO();
+  rtl_xor(&id_dest->val,&id_dest->val,&id_src->val);
+  operand_write(id_dest,&id_dest->val);
+  rtl_li(&t1,0);
+  rtl_set_CF(&t1);
+  rtl_set_OF(&t1);
+  rtl_update_ZFSF(&id_dest->val,id_dest->width);
   print_asm_template2(xor);
 }
 
