@@ -73,7 +73,7 @@ void init_difftest(void) {
   else if (pid == 0) {
     // child
 
-    // install a parent death signal in the chlid
+    // install a parent death signal in the child
     int r = prctl(PR_SET_PDEATHSIG, SIGTERM);
     if (r == -1) {
       perror("prctl error");
@@ -149,8 +149,20 @@ void difftest_step(uint32_t eip) {
 
   // TODO: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
-  TODO();
-
+  // TODO();
+  if(r.eip!=cpu.eip||r.eax!=cpu.eax||r.ebx!=cpu.ebx||r.ecx!=cpu.ecx||r.edx!=cpu.edx||r.ebp!=cpu.ebp||r.esp!=cpu.esp||r.edi!=cpu.edi||r.esi!=cpu.esi)
+  {
+      diff=true;
+      printf("r.eip=%0x,cpu.eip=%0x\n",r.eip,cpu.eip);
+      printf("r.eax=%0x,cpu.eax=%0x\n",r.eax,cpu.eax);
+      printf("r.ebx=%0x,cpu.ebx=%0x\n",r.ebx,cpu.ebx);
+      printf("r.ecx=%0x,cpu.ecx=%0x\n",r.ecx,cpu.ecx);
+      printf("r.edx=%0x,cpu.edx=%0x\n",r.edx,cpu.edx);
+      printf("r.ebp=%0x,cpu.ebp=%0x\n",r.ebp,cpu.ebp);
+      printf("r.esp=%0x,cpu.esp=%0x\n",r.esp,cpu.esp);
+      printf("r.edi=%0x,cpu.edi=%0x\n",r.edi,cpu.edi);
+      printf("r.esi=%0x,cpu.esi=%0x\n",r.esi,cpu.esi);
+  }
   if (diff) {
     nemu_state = NEMU_END;
   }
