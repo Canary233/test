@@ -110,18 +110,23 @@ static inline void rtl_sr(int r, int width, const rtlreg_t* src1) {
     default: assert(0);
   }
 }
+#define c_CF cpu.CF
+#define c_OF cpu.OF
+#define c_ZF cpu.ZF
+#define c_SF cpu.SF
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    TODO(); \
+    concat(c_,f)=*src; \
   } \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
-    TODO(); \
+    *dest=concat(c_,f);\
   }
 
 make_rtl_setget_eflags(CF)
 make_rtl_setget_eflags(OF)
 make_rtl_setget_eflags(ZF)
+
 make_rtl_setget_eflags(SF)
 
 static inline void rtl_mv(rtlreg_t* dest, const rtlreg_t *src1) {
