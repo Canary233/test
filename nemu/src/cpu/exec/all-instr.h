@@ -17,3 +17,5 @@ make_EHelper(sbb);
 make_EHelper(cmp);
 make_EHelper(adc);
 make_EHelper(and);
+make_EHelper(jmp);
+make_EHelper(dec);
