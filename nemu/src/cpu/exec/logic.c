@@ -84,7 +84,7 @@ make_EHelper(not) {
 }
 
 make_EHelper(rol) {
-  TODO();
+  //TODO();
   
   print_asm_template2(rol);
 }
