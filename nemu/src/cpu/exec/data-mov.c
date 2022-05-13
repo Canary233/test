@@ -44,7 +44,7 @@ make_EHelper(cltd) {
     //TODO();
     rtl_lr_w(&t0,R_AX);
     rtl_sext(&t0,&t0,2);
-    rtl_shri(&t0,&t0,16);
+    rtl_sari(&t0,&t0,16);
     rtl_sr_w(R_DX,&t0);
   }
   else {
