@@ -12,8 +12,8 @@ make_EHelper(test) {
 make_EHelper(and) {
   //TODO();
   rtl_and(&t0,&id_dest->val,&id_src->val);
-  printf("0x%x\n",t0);
   operand_write(id_dest,&t0);
+  printf("%x\n",id_dest->val);
   rtl_update_ZFSF(&t0,id_dest->width);
   rtl_set_CF(&tzero);
   rtl_set_OF(&tzero); 
