@@ -53,7 +53,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 	rtl_get_SF(&t0);
 	rtl_get_OF(&t1);
 	rtl_get_ZF(&t2);
-	rtl_xor(&t0,&t0,&t1);
+	t0=(t0!=t1?1:0);
 	rtl_or(dest,&t0,&t2);
 	break;
     }
