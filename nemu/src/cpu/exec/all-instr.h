@@ -39,3 +39,4 @@ make_EHelper(neg);
 make_EHelper(shr);
 make_EHelper(sar);
 make_EHelper(not);
+make_EHelper(call_rm);
