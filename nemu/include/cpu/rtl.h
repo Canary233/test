@@ -187,7 +187,8 @@ static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
   //TODO();
-  rtl_shri(dest,src1,width*8-1);
+  rtl_shri(&t0,src1,width*8-1);
+  *dest=t0&0x1;
 }
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
