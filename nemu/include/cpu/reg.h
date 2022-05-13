@@ -35,7 +35,7 @@ typedef struct {
   vaddr_t eip;
   union{
   struct{
-  uint32_t CF: 1;
+ /* uint32_t CF: 1;
   uint32_t :    1;
   uint32_t PF: 1;
   uint32_t :   1;
@@ -52,7 +52,17 @@ typedef struct {
   uint32_t :   1;
   uint32_t RF: 1;
   uint32_t VM: 1;
-  uint32_t :   14;
+  uint32_t :   14;*/
+  uint32_t CF: 1;
+  uint32_t :    5;
+  uint32_t ZF: 1;
+  uint32_t SF: 1;
+  uint32_t :   1;
+  uint32_t IF: 1;
+  uint32_t :   1;
+  uint32_t OF: 1;
+  uint32_t : 20;
+ 
   };
   uint32_t EFLAGS;
   }; 
