@@ -33,7 +33,6 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
     {
 	rtl_get_CF(&t1);
 	rtl_get_ZF(&t2);
-	printf("%d %d\n",t1,t2);
 	rtl_or(dest,&t1,&t2);
 	break;
     }
